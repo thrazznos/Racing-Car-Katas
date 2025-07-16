@@ -1,11 +1,18 @@
+using System;
+
 namespace TDDMicroExercises.TirePressureMonitoringSystem
 {
     public class Alarm
     {
+        public Alarm(ISensor sensor)
+        {
+            _sensor = sensor ?? throw new ArgumentNullException(nameof(sensor), "Sensor cannot be null");
+        }
+
         private const double LowPressureThreshold = 17;
         private const double HighPressureThreshold = 21;
 
-        Sensor _sensor = new Sensor();
+        ISensor _sensor;
 
         bool _alarmOn = false;
         private long _alarmCount = 0;
@@ -25,6 +32,11 @@ namespace TDDMicroExercises.TirePressureMonitoringSystem
         public bool AlarmOn
         {
             get { return _alarmOn; }
+        }
+
+        public long AlarmCount
+        {
+            get { return _alarmCount; }
         }
     }
 }
